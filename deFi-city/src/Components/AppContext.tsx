@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { Coin } from '../utils/data-types';
+import type { Coin } from '../utils/data-types';
 
 export type AppContextValues = {
 	coins: Coin[] | undefined;

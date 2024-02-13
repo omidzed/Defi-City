@@ -1,15 +1,15 @@
 import type { Coin } from '../utils/data-types';
 
 // Define the props expected by AssetsList
-interface AssetsListProps {
-	coins: Coin[];
+interface CoinsListProps {
+	coins: Coin[] | undefined;
 }
 
-export const AssetsList: React.FC<AssetsListProps> = ({ coins }) => {
+export const CoinsList = ({ coins }: CoinsListProps) => {
 	return (
-		<div>
-			{coins.map(coin => (
-				<div key={coin.id}>
+		<ul>
+			{coins?.map(coin => (
+				<li key={coin.id}>
 					{coin.name}
 					{coin.symbol}
 					{coin.logoUrl}
@@ -18,8 +18,8 @@ export const AssetsList: React.FC<AssetsListProps> = ({ coins }) => {
 					{coin.marketCapRank}
 					{coin.totalVolume}
 					{coin.priceChangePercentage24h}
-				</div>
+				</li>
 			))}
-		</div>
+		</ul>
 	);
 };
