@@ -19,18 +19,17 @@ export const useFetchCoins = () => {
 					return; // Return early if cached data was found
 				}
 				const targetUrl = encodeURIComponent(
-					`https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest`,
+					`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1`,
 				);
 				const response = await fetch('https://lfz-cors.herokuapp.com/?url=' + targetUrl, {
 					headers: {
-						'X-CMC_PRO_API_KEY': '44f133d8-a055-48f2-a1c2-2cdfa46723f7',
+						'x-cg-demo-api-key': 'CG-c3zpRsbsY8nVsrk7RdPpWE72',
 					},
 				});
 				if (!response.ok) {
 					throw new Error('Failed to fetch data');
 				}
 				const data: Coin[] = await response.json();
-				console.log('data', data);
 				console.log('Data fetched successfully:', data);
 				setCoins(data);
 				setLoading(false);

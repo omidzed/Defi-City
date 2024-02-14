@@ -1,17 +1,16 @@
 import { CoinProvider } from './Components/AppContext';
-import { useState } from 'react';
-import type { Coin } from './utils/data-types';
+import { Navbar } from "./Components/NavBar";
 import { SearchableList } from './Components/SearchableList';
+import { useFetchCoins } from './utils/useFetchCoins';
 
 function App() {
-	const [coins, setCoins] = useState<Coin[]>([]); // Initialized as an empty array
-	const [loading, setLoading] = useState<boolean>(false); // Correct type and initialization
-	const [error, setError] = useState<string | null>(null); // Correct type and initialization
+	const { coins, loading, error } = useFetchCoins();
 
-	const contextValue = { coins, loading, error, setCoins, setLoading, setError };
+	const contextValue = { coins, loading, error };
 
 	return (
 		<CoinProvider value={contextValue}>
+			<Navbar/>
 			<SearchableList coins={coins} />
 		</CoinProvider>
 	);

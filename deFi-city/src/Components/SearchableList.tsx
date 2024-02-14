@@ -1,16 +1,17 @@
 import { ChangeEvent, useState } from 'react';
-import { CoinsList } from "./CoinsList";
+import { CoinsList } from './CoinsList';
 import { SearchBox } from './SearchBox';
 import type { Coin } from '../utils/data-types';
 
 type SearchableListProps = {
-	coins: Coin[];
+	coins: Coin[]|undefined;
 };
 
 export const SearchableList = ({ coins }: SearchableListProps) => {
 	const [inputValue, setInputValue] = useState('');
+	console.log('coins before filtering', coins);
 
-	const filteredCoins: Coin[] = coins.filter(coin =>
+	const filteredCoins: Coin[]|undefined = coins?.filter(coin =>
 		coin.name.toLowerCase().includes(inputValue.toLowerCase()),
 	);
 

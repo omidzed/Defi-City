@@ -8,11 +8,12 @@ const style = {
 	listItem: 'mb-2',
 };
 export const CoinsList = ({ filteredCoins }: CoinsListProps) => {
-	if (filteredCoins === undefined) {
+	if (!filteredCoins) {
 		return <p>Loading...</p>;
 	}
 
 	if (filteredCoins.length === 0) {
+		console.log('filtered coins', filteredCoins);
 		return <p>No coins match your search criteria!</p>;
 	}
 	return (
