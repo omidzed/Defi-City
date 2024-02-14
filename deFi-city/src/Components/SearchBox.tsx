@@ -16,9 +16,9 @@ export const SearchBox = ({ value, onInputChange }: SearchBoxProps) => {
 	};
 
 	return (
-		<div className='search-box'>
+		<div>
 			<input
-				id='myTextarea'
+				id='search-box'
 				placeholder={placeholder}
 				onClick={handleClick}
 				onBlur={handleBlur}

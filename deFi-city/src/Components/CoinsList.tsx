@@ -1,15 +1,26 @@
 import type { Coin } from '../utils/data-types';
 
-// Define the props expected by AssetsList
-interface CoinsListProps {
-	coins: Coin[] | undefined;
-}
+type CoinsListProps = {
+	filteredCoins: Coin[] | undefined;
+};
 
-export const CoinsList = ({ coins }: CoinsListProps) => {
+const style = {
+	listItem: 'mb-2',
+};
+export const CoinsList = ({ filteredCoins }: CoinsListProps) => {
+	if (filteredCoins === undefined) {
+		return <p>Loading...</p>;
+	}
+
+	if (filteredCoins.length === 0) {
+		return <p>No coins match your search criteria!</p>;
+	}
 	return (
 		<ul>
-			{coins?.map(coin => (
-				<li key={coin.id}>
+			{filteredCoins?.map(coin => (
+				<li
+					key={coin.id}
+					className={style.listItem}>
 					{coin.name}
 					{coin.symbol}
 					{coin.logoUrl}

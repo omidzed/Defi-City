@@ -2,33 +2,36 @@ import { useState, useEffect } from 'react';
 import type { Coin } from './data-types';
 
 export const useFetchCoins = () => {
-	const [coins, setCoins] = useState<Coin[]>([]);
+	const [coins, setCoins] = useState<Coin[] | undefined>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
+		console.log('fetching data from the API...');
 		const fetchData = async () => {
 			try {
-				setLoading(true);
+        setLoading(true);
+        console.log('getting data from localStorage');
 				const cachedData = localStorage.getItem('coinsData');
 				if (cachedData) {
+					console.log('cached data', cachedData);
 					setCoins(JSON.parse(cachedData));
-					setLoading(false);
 					return; // Return early if cached data was found
 				}
-				const response = await fetch(
-					`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1`,
-					{
-						headers: {
-							'x-cg-pro-api-key': 'CG-c3zpRsbsY8nVsrk7RdPpWE72',
-						},
-					},
+				const targetUrl = encodeURIComponent(
+					`https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest`,
 				);
+				const response = await fetch('https://lfz-cors.herokuapp.com/?url=' + targetUrl, {
+					headers: {
+						'X-CMC_PRO_API_KEY': '44f133d8-a055-48f2-a1c2-2cdfa46723f7',
+					},
+				});
 				if (!response.ok) {
 					throw new Error('Failed to fetch data');
 				}
 				const data: Coin[] = await response.json();
 				console.log('data', data);
+				console.log('Data fetched successfully:', data);
 				setCoins(data);
 				setLoading(false);
 			} catch (error) {
