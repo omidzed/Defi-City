@@ -3,19 +3,20 @@ import type { Coin } from './data-types';
 
 export const useFetchCoins = () => {
 	const [coins, setCoins] = useState<Coin[] | undefined>([]);
-	const [loading, setLoading] = useState<boolean>(true);
-	const [error, setError] = useState<string | null>(null);
+	const [loading, setLoading] = useState<boolean>();
+	const [error, setError] = useState<Error | null>(null);
 
 	useEffect(() => {
 		console.log('fetching data from the API...');
 		const fetchData = async () => {
 			try {
-        setLoading(true);
-        console.log('getting data from localStorage');
+				setLoading(true);
+				console.log('getting data from localStorage');
 				const cachedData = localStorage.getItem('coinsData');
 				if (cachedData) {
 					console.log('cached data', cachedData);
-					setCoins(JSON.parse(cachedData));
+					setCoins(JSON.parse(cachedData) as Coin[]);
+					setLoading(false);
 					return; // Return early if cached data was found
 				}
 				const targetUrl = encodeURIComponent(
@@ -32,12 +33,9 @@ export const useFetchCoins = () => {
 				const data: Coin[] = await response.json();
 				console.log('Data fetched successfully:', data);
 				setCoins(data);
-				setLoading(false);
-			} catch (error) {
-				setError(
-					'An error occurred while fetching data: ' +
-						(error instanceof Error ? error.message : String(error)),
-				);
+				localStorage.setItem('coinsData', JSON.stringify(data));
+			} catch (err) {
+				setError(err instanceof Error ? err : new Error('Failed to fetch data'));
 			} finally {
 				setLoading(false);
 			}

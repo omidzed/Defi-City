@@ -16,7 +16,7 @@ export const SearchBox = ({ value, onInputChange }: SearchBoxProps) => {
 	};
 
 	return (
-		<div className="flex justify-center">
+		<div className='flex justify-center'>
 			<input
 				id='search-box'
 				placeholder={placeholder}
