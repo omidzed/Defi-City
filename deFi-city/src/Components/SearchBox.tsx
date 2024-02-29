@@ -5,7 +5,7 @@ type SearchBoxProps = {
 	onInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 export const SearchBox = ({ value, onInputChange }: SearchBoxProps) => {
-	const [placeholder, setPlaceholder] = useState('Search...');
+	const [placeholder, setPlaceholder] = useState('Search by name ...');
 
 	const handleClick = () => {
 		setPlaceholder('');
@@ -16,7 +16,7 @@ export const SearchBox = ({ value, onInputChange }: SearchBoxProps) => {
 	};
 
 	return (
-		<div className='flex justify-center'>
+		<div className='flex justify-center mb-6'>
 			<input
 				id='search-box'
 				placeholder={placeholder}

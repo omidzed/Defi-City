@@ -7,21 +7,16 @@ export const useFetchCoins = () => {
 	const [error, setError] = useState<Error | null>(null);
 
 	useEffect(() => {
-		console.log('fetching data from the API...');
 		const fetchData = async () => {
+			setLoading(true);
 			try {
-				setLoading(true);
-				console.log('getting data from localStorage');
 				const cachedData = localStorage.getItem('coinsData');
 				if (cachedData) {
-					console.log('cached data', cachedData);
 					setCoins(JSON.parse(cachedData) as Coin[]);
 					setLoading(false);
 					return; // Return early if cached data was found
 				}
-				const targetUrl = encodeURIComponent(
-					`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true`,
-				);
+				const targetUrl = encodeURIComponent(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true`);
 				const response = await fetch('https://lfz-cors.herokuapp.com/?url=' + targetUrl, {
 					headers: {
 						'x-cg-demo-api-key': 'CG-c3zpRsbsY8nVsrk7RdPpWE72',

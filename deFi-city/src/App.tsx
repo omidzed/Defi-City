@@ -1,14 +1,17 @@
 import { CoinProvider } from './Components/AppContext';
 import { Navbar } from './Components/NavBar';
 import { SearchableList } from './Components/SearchableList';
+import { ThemeProvider } from './Components/ThemeContext';
 
-function App() {
+const App = () => {
 	return (
-		<CoinProvider>
-			<Navbar />
-			<SearchableList />
-		</CoinProvider>
+		<ThemeProvider>
+			<CoinProvider>
+				<Navbar />
+				<SearchableList />
+			</CoinProvider>
+		</ThemeProvider>
 	);
-}
+};
 
 export default App;

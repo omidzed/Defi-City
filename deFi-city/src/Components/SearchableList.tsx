@@ -20,7 +20,7 @@ export const SearchableList = () => {
 	}
 
 	return (
-		<div className='p-5'>
+		<div className='mt-10 p-5 text-white bg-[#192633]'>
 			<SearchBox
 				value={inputValue}
 				onInputChange={handleInputChange}
