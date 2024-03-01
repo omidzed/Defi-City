@@ -11,16 +11,14 @@ export const SearchableList = () => {
 
 	console.log('coins before filtering', coins);
 
-	const filteredCoins: Coin[] | undefined = coins?.filter(coin =>
-		coin.name.toLowerCase().includes(inputValue.toLowerCase()),
-	);
+	const filteredCoins: Coin[] | undefined = coins?.filter(coin => coin.name.toLowerCase().includes(inputValue.toLowerCase()));
 
 	function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
 		setInputValue(event.target.value);
 	}
 
 	return (
-		<div className='mt-10 p-5 text-white bg-[#192633]'>
+		<div className='p-5 text-white bg-[#192633]'>
 			<SearchBox
 				value={inputValue}
 				onInputChange={handleInputChange}

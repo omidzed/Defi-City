@@ -11,17 +11,25 @@ export const Navbar: React.FC = () => {
 	};
 
 	return (
-		<div className={`flex justify-center ${theme === 'dark' ? 'bg-[#192633]' : 'bg-secondary-light'}`}>
+		<div className={`flex justify-center ${theme === 'dark' ? 'bg-[#192633]' : 'bg-[#E5D9CC]'}`}>
 			<img
 				className={`${theme === 'light' ? 'invert' : ''} w-28`}
 				src='/src/assets/defi.png'
 				alt='Logo'
 			/>
-			<div className={`bg-[#192633] dark:bg-white ${theme}`}>
+			<div className={`bg-[#192633] dark:bg-[#E5D9CC] ${theme}`}>
 				<button
-					className='bg-white dark:bg-[#192633] dark:text-white text-3xl absolute right-20 top-8'
+					className='bg-[#E5D9CC] dark:bg-[#192633] dark:text-[#E5D9CC] dark:text-4xl absolute right-32 top-16 border-2 p-1 dark:border-white border-[#192633] rounded-full'
 					onClick={toggleTheme}>
-					{theme === 'dark' ? <LuSunMedium /> : <IoMoon />}
+					{theme === 'dark' ? (
+						<span className='text-[#E5D9CC]'>
+							<LuSunMedium />
+						</span>
+					) : (
+						<span className='text-[#192633]'>
+							<IoMoon />
+						</span>
+					)}
 				</button>
 			</div>
 		</div>
