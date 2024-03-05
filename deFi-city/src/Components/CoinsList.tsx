@@ -5,6 +5,7 @@ import { FaCaretUp, FaCaretDown } from 'react-icons/fa6';
 
 type CoinsListProps = {
 	filteredCoins: Coin[] | undefined;
+	isDarkMode: boolean;
 };
 
 const formatPrice = (price: number | bigint) => {
@@ -18,7 +19,7 @@ const formatPrice = (price: number | bigint) => {
 
 const style = {
 	tableBody: 'w-full dark:divide-moon-700',
-	tableRow: 'flex border border-top border-botom py-2 justify-start items-end w-full hover:bg-gray-100 bg-white dark:bg-black-900 hover:dark:bg-black-800 text-md',
+	tableRow: 'flex border border-top border-bottom py-2 justify-start items-end w-full hover:bg-gray-100 bg-white dark:bg-black-900 hover:dark:bg-black-800 text-md',
 	tableData: 'mr-4 text-xl text-gray-900 dark:text-moon-50 bg-inherit whitespace-nowrap',
 	symbol: 'text-xs flex items-end justify-end',
 	image: 'w-[8%] ml-1 py-1 object-contain',
@@ -26,7 +27,7 @@ const style = {
 	negativeChange: 'text-red-500',
 };
 
-export const CoinsList = ({ filteredCoins }: CoinsListProps) => {
+export const CoinsList = ({ filteredCoins, isDarkMode }: CoinsListProps) => {
 	if (!filteredCoins) {
 		return <p>Loading...</p>;
 	} else if (filteredCoins.length === 0) {
@@ -46,11 +47,11 @@ export const CoinsList = ({ filteredCoins }: CoinsListProps) => {
 				{filteredCoins.map(coin => (
 					<>
 						<div
-							className='flex px-2 py-4 justify-start items-center w-[90%] border border-l-0 border-r-0 border-b-0 hover:bg-gray-800'
+							className='flex px-2 py-4 justify-start items-center w-[90%] border dark:border-gray-50 border-gray-400 border-l-0 border-r-0 border-b-0 hover:bg-gray-800'
 							key={coin.id}>
 							<div className='flex gap-4 items-center ml-4 mr-20 w-[5%]'>
 								<div>
-									<FaRegStar color='white' />
+									<FaRegStar color={isDarkMode ? 'white' : '#0F172A'} />
 								</div>
 								<div className='ml-3'>{coin.market_cap_rank}</div>
 							</div>

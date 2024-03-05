@@ -1,18 +1,19 @@
 import { CoinProvider } from './Components/AppContext';
-import { Navbar } from './Components/NavBar';
-import { SearchableList } from './Components/SearchableList';
-import { ThemeProvider } from './Components/ThemeContext';
-import { DataGraphs } from './Components/DataGraphs';
+import { useDarkMode } from './utils/useDarkMode';
+import { HomePage } from './Components/HomePage';
 
 const App = () => {
+	const { isDarkMode, toggleDarkMode } = useDarkMode();
+
 	return (
-		<ThemeProvider>
+		<div onClick={toggleDarkMode}>
 			<CoinProvider>
-				<Navbar />
-				<DataGraphs />
-				<SearchableList />
+				<HomePage
+					isDarkMode={isDarkMode}
+					toggleDarkMode={toggleDarkMode}
+				/>
 			</CoinProvider>
-		</ThemeProvider>
+		</div>
 	);
 };
 
