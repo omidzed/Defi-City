@@ -47,7 +47,7 @@ export const CoinsList = ({ filteredCoins, isDarkMode }: CoinsListProps) => {
 				{filteredCoins.map(coin => (
 					<>
 						<div
-							className='flex px-2 py-4 justify-start items-center w-[90%] border dark:border-gray-50 border-gray-400 border-l-0 border-r-0 border-b-0 hover:bg-gray-800'
+							className='flex px-2 py-2 justify-start items-center w-[90%] border dark:border-gray-50 border-gray-400 border-l-0 border-r-0 border-b-0 hover:bg-gray-800'
 							key={coin.id}>
 							<div className='flex gap-4 items-center ml-4 mr-20 w-[5%]'>
 								<div>

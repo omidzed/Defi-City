@@ -20,3 +20,8 @@ body {
 	color: white;
 	border-radius: 40px;
 }
+
+.isDarkMode #search-box {
+	background-color: white; /* Light background for dark mode */
+	color: black; /* Dark text for dark mode */
+}

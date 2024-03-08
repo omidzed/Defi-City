@@ -4,21 +4,14 @@ import { SearchableList } from './SearchableList';
 
 type HomePageProps = {
 	isDarkMode: boolean;
-	toggleDarkMode: () => void;
 };
 
-export const HomePage = ({ isDarkMode, toggleDarkMode }: HomePageProps) => {
+export const HomePage = ({ isDarkMode }: HomePageProps) => {
 	return (
 		<div>
-			<Navbar
-				isDarkMode={isDarkMode}
-				toggleDarkMode={toggleDarkMode}
-			/>
+			<Navbar isDarkMode={isDarkMode} />
 			<DataGraphs />
-			<SearchableList
-				isDarkMode={isDarkMode}
-				toggleDarkMode={toggleDarkMode}
-			/>
+			<SearchableList isDarkMode={isDarkMode} />
 		</div>
 	);
 };

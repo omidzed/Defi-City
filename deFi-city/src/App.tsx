@@ -1,19 +1,25 @@
+import * as React from 'react';
 import { CoinProvider } from './Components/AppContext';
-import { useDarkMode } from './utils/useDarkMode';
 import { HomePage } from './Components/HomePage';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
 const App = () => {
-	const { isDarkMode, toggleDarkMode } = useDarkMode();
+	const [isDarkMode, setDarkMode] = React.useState(true);
+	const toggleDarkMode = (checked: boolean) => {
+		setDarkMode(checked);
+	};
 
 	return (
-		<div onClick={toggleDarkMode}>
-			<CoinProvider>
-				<HomePage
-					isDarkMode={isDarkMode}
-					toggleDarkMode={toggleDarkMode}
-				/>
-			</CoinProvider>
-		</div>
+		<CoinProvider>
+			<DarkModeSwitch
+				className='absolute top-14 right-32'
+				style={{ marginBottom: '2rem' }}
+				checked={isDarkMode}
+				onChange={toggleDarkMode}
+				size={30}
+			/>
+			<HomePage isDarkMode={isDarkMode} />
+		</CoinProvider>
 	);
 };
 

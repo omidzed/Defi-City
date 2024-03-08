@@ -5,7 +5,6 @@ import type { Coin } from '../utils/data-types';
 import { useFetchCoins } from '../utils/useFetchCoins';
 
 type SearchableListProps = {
-	toggleDarkMode: () => void;
 	isDarkMode: boolean;
 };
 
@@ -25,6 +24,7 @@ export const SearchableList = ({ isDarkMode }: SearchableListProps) => {
 	return (
 		<div className={`p-5 ${isDarkMode ? 'text-white bg-[#192633]' : 'text-[#192633] bg-[#E5D9CC]'}`}>
 			<SearchBox
+				isDarkMode={isDarkMode}
 				value={inputValue}
 				onInputChange={handleInputChange}
 			/>
