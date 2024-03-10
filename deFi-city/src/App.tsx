@@ -12,11 +12,11 @@ const App = () => {
 	return (
 		<CoinProvider>
 			<DarkModeSwitch
-				className='absolute top-14 right-32'
+				className='absolute top-10 right-32'
 				style={{ marginBottom: '2rem' }}
 				checked={isDarkMode}
 				onChange={toggleDarkMode}
-				size={30}
+				size={25}
 			/>
 			<HomePage isDarkMode={isDarkMode} />
 		</CoinProvider>
