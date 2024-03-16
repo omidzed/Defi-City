@@ -21,7 +21,11 @@ body {
 	border-radius: 40px;
 }
 
-.isDarkMode #search-box {
-	background-color: white; /* Light background for dark mode */
-	color: black; /* Dark text for dark mode */
+@media (prefers-color-scheme: dark) {
+	body:not(.isDarkMode) #search-box {
+		background-color: #e5d9cc; /* Light background for dark mode */
+		background-image: url('search-solid-dark.svg');
+		color: black; /* Dark text for dark mode */
+		border: 1px solid black;
+	}
 }

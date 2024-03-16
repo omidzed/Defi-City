@@ -9,6 +9,10 @@ const App = () => {
 		setDarkMode(checked);
 	};
 
+	React.useEffect(() => {
+		document.body.classList.toggle('isDarkMode', isDarkMode);
+	}, [isDarkMode]);
+
 	return (
 		<CoinProvider>
 			<DarkModeSwitch
