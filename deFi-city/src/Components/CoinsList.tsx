@@ -1,7 +1,8 @@
 import type { Coin } from '../utils/data-types';
 import { StarComponent } from './StarComponent';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa6';
-//import { VictoryChart, VictoryLine, VictoryAxis } from 'victory';
+import { v4 as uuid } from 'uuid';
+import { VictoryChart, VictoryLine } from 'victory';
 
 type CoinsListProps = {
 	filteredCoins: Coin[] | undefined;
@@ -34,7 +35,7 @@ export const CoinsList = ({ filteredCoins, isDarkMode }: CoinsListProps) => {
 		return <p>No coins match your search criteria!</p>;
 	} else
 		return (
-			<div className='flex flex-col items-center border-0 whitespace-nowrap'>
+			<div className={`flex flex-col items-center border-0 whitespace-nowrap ${isDarkMode ? 'text-white bg-[#192633]' : 'text-[#192633] bg-[#fff]'}`}>
 				<div className='flex text-thead items-center justify-start w-[90%] px-2 py-3 border border-l-0 border-r-0 border-b-0'>
 					<span className='ml-12 w-[5%]'>#</span>
 					<span className='ml-16 mr-44 w-[11%]'>Coin</span>
@@ -47,10 +48,10 @@ export const CoinsList = ({ filteredCoins, isDarkMode }: CoinsListProps) => {
 				{filteredCoins.map(coin => (
 					<>
 						<div
-							className={`flex px-2 py-2 justify-start items-center w-[90%] border ${
-								isDarkMode ? 'dark:border-gray-50 hover:bg-gray-700' : 'border-gray-400 hover:bg-gray-400'
+							className={`flex py-2 justify-start items-center w-[90%] border ${
+								isDarkMode ? 'dark:border-gray-50 hover:bg-gray-700' : 'border-gray-400 hover:bg-blue-100'
 							} border-l-0 border-r-0 border-b-0`}
-							key={coin.id}>
+							key={uuid()}>
 							<div className='flex gap-4 items-center ml-4 mr-20 w-[5%]'>
 								<StarComponent isDarkMode={isDarkMode} />
 
@@ -72,21 +73,19 @@ export const CoinsList = ({ filteredCoins, isDarkMode }: CoinsListProps) => {
 							</div>
 							<div className='ml-5 text-right w-[10%] mr-5'>{formatPrice(coin.total_volume)}</div>
 							<div className='ml-10 text-right w-[10%]'>{formatPrice(coin.market_cap)}</div>
-						</div>
-						<div className='w-full mt-2'>
-							{/* {coin.historicalData && (
-								<VictoryChart
-									width={400}
-									height={200}
-									scale={{ x: 'time' }}>
+							<div className='ml-16 w-[10%] h-14 mt-2'>
+								<VictoryChart>
 									<VictoryLine
-										data={coin.historicalData}
-										style={{ data: { stroke: '#c43a31' } }}
+										data={coin.sparkline_in_7d.price.map((price, i) => ({
+											x: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000 + (i * (24 * 60 * 60 * 1000)) / coin.sparkline_in_7d.price.length),
+											y: price,
+										}))}
+										style={{
+											data: { stroke: isDarkMode ? '#ffffff' : '#c43a31' },
+										}}
 									/>
-									<VictoryAxis tickFormat={x => new Date(x).toLocaleDateString()} />
-									<VictoryAxis dependentAxis />
 								</VictoryChart>
-							)} */}
+							</div>
 						</div>
 					</>
 				))}

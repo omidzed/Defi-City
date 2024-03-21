@@ -6,26 +6,6 @@ body {
 	margin: 0 auto;
 }
 
-#search-box {
-	background-image: url('search-solid.svg');
-	background-color: rgb(39, 49, 61);
-	background-repeat: no-repeat;
-	background-size: 20px;
-	background-position: 20px 10px;
-	padding-left: 3.5rem;
-	width: 20%;
-	height: 2.5rem;
-	font-size: 1.1rem;
-	border: 1px solid rgba(95, 92, 92, 0.134);
-	color: white;
-	border-radius: 40px;
-}
-
-@media (prefers-color-scheme: dark) {
-	body:not(.isDarkMode) #search-box {
-		background-color: #e5d9cc; /* Light background for dark mode */
-		background-image: url('search-solid-dark.svg');
-		color: black; /* Dark text for dark mode */
-		border: 1px solid black;
-	}
+input:focus {
+	outline: none;
 }
