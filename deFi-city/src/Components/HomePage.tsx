@@ -26,7 +26,7 @@ export const HomePage = () => {
 	}
 
 	return (
-		<div className={`p-5 ${isDarkMode ? 'text-white bg-[#192633]' : 'text-[#192633] bg-[#fff]'}`}>
+		<div className={`p-5 h-screen ${isDarkMode ? 'text-white bg-[#192633]' : 'text-[#192633] bg-[#fff]'}`}>
 			<div className='flex justify-between items-center mb-2 px-24'>
 				<div className='w-1/5 flex gap-2'>
 					<span className={`${isDarkMode ? 'text-white' : 'text-black'} whitespace-nowrap`}>Powered by</span>
