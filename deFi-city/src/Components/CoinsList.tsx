@@ -22,22 +22,6 @@ const formatPrice = (price: number | bigint) => {
 	}).format(price);
 };
 
-const formatYAxis = (price: number) => {
-	if (price >= 10000) {
-		// Format thousands with 'k' suffix
-		return `${(price / 1000).toFixed(0)}k`;
-	}
-	if (price < 10000) {
-		return `${price.toFixed(2)}`;
-	} else if (price >= 1) {
-		// Format whole numbers without decimals
-		return `${price.toFixed(2)}`;
-	} else if (price < 1) {
-		// Format small fractions with two decimal places
-		return `${price.toFixed(2)}`;
-	}
-};
-
 const style = {
 	tableBody: 'w-full dark:divide-moon-700',
 	tableRow: 'flex border border-top border-bottom py-2 justify-start items-end w-full hover:bg-gray-100 bg-white dark:bg-black-900 hover:dark:bg-black-800 text-md',
