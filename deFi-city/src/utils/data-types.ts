@@ -20,3 +20,23 @@ export type Sparkline = {
 
 export type ChartData = Array<[number]>;
 
+interface CoinData {
+	sparkline_in_7d: {
+		price: number[];
+	};
+}
+
+// Function to calculate 7-day percent change
+export const sevenDayTrend = (data: CoinData): number => {
+	const { sparkline_in_7d } = data;
+	const prices = sparkline_in_7d?.price;
+
+	if (!prices || prices.length < 2) {
+		return 0;
+	}
+
+	const firstPrice = prices[0];
+	const lastPrice = prices[prices.length - 1];
+	const percentChange = ((lastPrice - firstPrice) / firstPrice) * 100;
+	return percentChange;
+};
