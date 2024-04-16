@@ -5,6 +5,7 @@ export default {
 	darkMode: 'class',
 	theme: {
 		fontSize: {
+			gecko:'1.26rem',
 			name: '1.2rem',
 			symbol: '.95rem',
 		},

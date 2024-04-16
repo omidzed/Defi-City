@@ -1,6 +1,6 @@
 import { createContext, ReactNode } from 'react';
-import type { Coin } from '../utils/data-types';
-import { useFetchCoins } from '../utils/useFetchCoins';
+import type { Coin } from '../types/data-types';
+import { useFetchCoins } from '../hooks/useFetchCoins';
 
 export type AppContextValues = {
 	coins: Coin[] | undefined;

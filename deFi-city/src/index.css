@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+  box-sizing:border-box;
 	margin: 0 auto;
 }
 
@@ -17,15 +18,15 @@ input:focus {
 .double-border::after {
   content: '';
   display: block;
-  margin-top: -1px; /* Overlap the borders */
-  height: 1px; /* Height of the second border */
-  background-color: #e5e7eb; /* Color of the second border, equivalent to bg-gray-200 */
+  margin-top: -1px;
+  height: 1px;
+  background-color: #e5e7eb;
 }
 
 .flex-col md:gap-1 md:flex-row xl:justify-start xl:items-center {
-  align-items: baseline; /* This ensures that flex items align along the baseline */
+  align-items: baseline;
 }
 
 .text-symbol {
-  self-align: baseline; /* This aligns the symbol span itself to the baseline */
+  self-align: baseline;
 }

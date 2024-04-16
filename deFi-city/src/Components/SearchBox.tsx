@@ -18,17 +18,17 @@ export const SearchBox = ({ value, onInputChange, isDarkMode }: SearchBoxProps) 
 	return (
 		<div
 			className={`relative flex items-center
-		${isDarkMode ? 'bg-[#192633]' : 'bg-[#fff] border-[#192633] border-2'} border rounded-lg overflow-hidden`}>
+		${isDarkMode ? 'bg-dark' : 'bg-white border-dark border-2'} border border-green-400 rounded-lg overflow-hidden`}>
 			<div className='absolute ml-5'>
 				<IoSearch
-					className={`${isDarkMode ? 'text-white' : 'text-black'}`}
+					className={`${isDarkMode ? 'text-green-400' : 'text-black'}`}
 					size={20}
 				/>
 			</div>
 			<input
 				id='search-box'
 				className={`pl-12 pr-3 py-2.5 w-48 text-lg focus:border-none
-				${isDarkMode ? 'bg-[#192633] text-white' : 'bg-[#fff] text-black'}
+				${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'}
 				rounded-lg placeholder:${isDarkMode ? 'placeholder-gray-500' : 'placeholder-gray-700'}`}
 				placeholder={placeholder}
 				value={value}
