@@ -4,10 +4,10 @@ import { HomePage } from './Components/Pages/HomePage';
 import { Navbar } from './Components/Pages/NavBar';
 
 type Props = {
-	checked: boolean;
+	checked?: boolean;
 };
 
-const App = ({ checked }: Props) => {
+const App = ({ checked = false }: Props) => {
 	const [isDark, setIsDark] = useState(!checked);
 	const [inputValue, setInputValue] = useState('');
 
