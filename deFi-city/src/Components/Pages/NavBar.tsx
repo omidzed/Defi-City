@@ -4,7 +4,7 @@ import { useFetchCoins } from '../../hooks/useFetchCoins';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
 type NavBarProps = {
-	isDark: boolean; // Make sure to use 'isDark' or 'isDarkMode' consistently
+	isDark: boolean;
 	setIsDark: () => void;
 	inputValue: string;
 	setInputValue: (value: string) => void;
@@ -23,13 +23,13 @@ export const Navbar = ({ isDark, inputValue, setInputValue, toggleDarkMode }: Na
 	};
 
 	return (
-		<div className={`${isDark ? 'text-white bg-dark' : 'text-dark bg-[#7BAFD4]'} flex justify-between w-full px-2 md:px-20`}>
+		<div className={`${isDark ? 'text-white bg-dark' : 'text-dark bg-light'} flex justify-between w-full px-2 md:px-20`}>
 			<div
 				className='flex flex-col justify-center items-center w-20 md:w-28 cursor-pointer '
 				onClick={refreshData}>
 				<span className={`${isDark ? 'text-white' : 'text-gray-700'} text-xs md:text-gecko font-semibold whitespace-nowrap text-right max-w-prose tracking-wide`}>Powered By</span>
 				<img
-					src={`${isDark ? 'src/assets/coingecko_logo_white.png' : 'src/assets/coingecko_logo_dark.png'}`}
+					src={`${isDark ? './coingecko_logo_white.png' : './coingecko_logo_dark.png'}`}
 					alt='CoinGecko Logo'
 					className='object-contain md:object-fill md:w-28 md:h-7 '
 				/>
@@ -37,7 +37,7 @@ export const Navbar = ({ isDark, inputValue, setInputValue, toggleDarkMode }: Na
 
 			<img
 				className='self-auto md:self-auto w-24 md:w-32 mx-2'
-				src={`${isDark ? 'src/assets/defi.png' : 'src/assets/defi6.png'}`}
+				src={`${isDark ? './defi.png' : './defi6.png'}`}
 				alt='Logo'
 			/>
 			<div className='flex justify-between items-center basis-1/4'>

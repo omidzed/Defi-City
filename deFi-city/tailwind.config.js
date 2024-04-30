@@ -5,14 +5,15 @@ export default {
 	darkMode: 'class',
 	theme: {
 		fontSize: {
-			gecko:'1.1rem',
+			gecko: '1.1rem',
 			name: '1.2rem',
 			symbol: '.95rem',
-			xs:'.7rem'
+			xs: '.7rem',
 		},
 		extend: {
 			colors: {
 				dark: '#192633',
+				light: '#7BAFD4',
 			},
 			container: {
 				padding: {

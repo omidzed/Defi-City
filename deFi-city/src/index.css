@@ -31,7 +31,4 @@ input:focus {
 	self-align: baseline;
 }
 
-::placeholderz {
-	color: red;
-	opacity: 1;
-}
+
