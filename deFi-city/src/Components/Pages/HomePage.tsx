@@ -1,28 +1,22 @@
-import type { ChangeEvent, FC } from 'react';
-import { useState } from 'react';
 import { useFetchCoins } from '../../hooks/useFetchCoins';
 import { CoinsList } from '../CryptoDetails/CoinsList';
 import type { Coin } from '../../types/data-types';
 
 type HomePageProps = {
-	isDarkMode: boolean;
+	isDark: boolean;
+	inputValue: string;
 };
 
-export const HomePage: FC<HomePageProps> = ({ isDarkMode }) => {
-	const [inputValue, setInputValue] = useState('');
-
+export const HomePage = ({ isDark, inputValue }: HomePageProps) => {
 	const { coins } = useFetchCoins();
+
 	const filteredCoins: Coin[] | undefined = coins?.filter(coin => coin.name.toLowerCase().includes(inputValue.toLowerCase()));
-	function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-		setInputValue(event.target.value);
-	}
 
 	return (
-		<div className={`main h-screen overflow-auto ${isDarkMode ? 'text-white bg-dark' : 'text-dark bg-[#fff]'}`}>
+		<div className={`main h-screen overflow-auto ${isDark ? 'text-white bg-dark' : 'text-dark bg-[#7BAFD4]'}`}>
 			<CoinsList
-				isDarkMode={isDarkMode}
+				isDark={isDark}
 				filteredCoins={filteredCoins}
-				
 			/>
 		</div>
 	);

@@ -90,6 +90,7 @@ export const useFetchCoins = () => {
 
 	const refreshData = () => {
 		fetchData();
+		console.log('data refreshed');
 	};
 
 	useEffect(() => {

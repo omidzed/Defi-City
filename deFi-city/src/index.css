@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  box-sizing:border-box;
+	box-sizing: border-box;
 	margin: 0 auto;
 }
 
@@ -12,21 +12,26 @@ input:focus {
 }
 
 .sticky-top {
-  @apply sticky top-0 z-10 bg-[#192633];
+	@apply sticky top-0 z-10 bg-[#192633];
 }
 
 .double-border::after {
-  content: '';
-  display: block;
-  margin-top: -1px;
-  height: 1px;
-  background-color: #e5e7eb;
+	content: '';
+	display: block;
+	margin-top: -1px;
+	height: 1px;
+	background-color: #e5e7eb;
 }
 
 .flex-col md:gap-1 md:flex-row xl:justify-start xl:items-center {
-  align-items: baseline;
+	align-items: baseline;
 }
 
 .text-symbol {
-  self-align: baseline;
+	self-align: baseline;
+}
+
+::placeholderz {
+	color: red;
+	opacity: 1;
 }

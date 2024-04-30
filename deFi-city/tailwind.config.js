@@ -5,9 +5,10 @@ export default {
 	darkMode: 'class',
 	theme: {
 		fontSize: {
-			gecko:'1.26rem',
+			gecko:'1.1rem',
 			name: '1.2rem',
 			symbol: '.95rem',
+			xs:'.7rem'
 		},
 		extend: {
 			colors: {
