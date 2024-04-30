@@ -4,7 +4,6 @@ import { HomePage } from './Components/Pages/HomePage';
 import { Navbar } from './Components/Pages/NavBar';
 
 type Props = {
-	onChange: (checked: boolean) => void;
 	checked: boolean;
 };
 

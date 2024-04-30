@@ -18,7 +18,7 @@ export const SearchBox = ({ value, onInputChange, isDark }: SearchBoxProps) => {
 	return (
 		<div
 			className={`relative flex items-center
-		${isDark ? 'bg-dark border-green-400' : 'bg-yellow-300 border-green-800  border-2'} border  rounded-lg overflow-hidden`}>
+		${isDark ? 'bg-dark border-green-400' : 'bg-yellow-3         00 border-green-800  border-2'} border  rounded-lg overflow-hidden`}>
 			<div className='absolute ml-5'>
 				<IoSearch
 					className={`${isDark ? 'text-green-400' : 'text-black'}`}
