@@ -77,7 +77,7 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 							# {sortColumn === 'market_cap_rank' && (sortDirection === 'asc' ? <FaCaretUp /> : <FaCaretDown />)}
 						</th>
 						<th className={`${commonStyles} text-left pl-2 sticky left-[60px] md:left-[24px] md:min-w-10 indicator-left cursor-pointer`}>Coin</th>
-						<th className={`${commonStyles} text-left  md:left-[12px] md:min-w-[48px] indicator-left cursor-pointer`}>Price</th>
+						<th className={`${commonStyles} text-left md:text-right md:left-[12px] md:min-w-[40px] indicator-left cursor-pointer`}>Price</th>
 						<th className={`${commonStyles} text-right  left-[51px] md:left-[52px] min-w-[100px] 2lg:min-w-[150px] md:table-cell`}>24h</th>
 						<th className={`${commonStyles} text-right indicator-left min-w-[100px] 2lg:min-w-[150px] md:table-cell`}>7d</th>
 						<th className={`${commonStyles} text-right min-w-[150px] indicator-left cursor-pointer md:table-cell`}>24h Volume</th>
@@ -108,15 +108,15 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 											alt={`Image of ${coin.id}`}
 										/>
 									</div>
-									<div className='flex flex-col md:gap-1 md:flex-row xl:justify-start xl:items-center md:items-baseline'>
+									<div className='flex flex-col md:flex-row xl:justify-start xl:items-center md:items-baseline'>
 										<span className='z-10 text-left pl-2 sticky left-15p[px] md:left-[24px] md:min-w-10 font-semibold left-[10px] min-w-[24px] md:text-name whitespace-nowrap'>
 											{coin.name}
 										</span>
-										<span className='z-10 left-[60px] min-w-[24px] md:min-w-10 font-thin text-symbol align-baseline md:justify-end'>({`${coin.symbol.toUpperCase()}`})</span>
+										<span className='z-10 pl-2 left-[60px] min-w-[24px] md:min-w-10 font-thin text-symbol align-baseline md:justify-end'>({`${coin.symbol.toUpperCase()}`})</span>
 									</div>
 								</div>
 							</td>
-							<td className={`${commonStyles} pl-2 text-left md:left-[12px] md:min-w-[48px]`}>{formatPrice(coin.current_price)}</td>
+							<td className={`${commonStyles} pl-2 text-left md:text-right md:left-[12px] md:min-w-[48px]`}>{formatPrice(coin.current_price)}</td>
 							<td className={`${coin.price_change_percentage_24h < 0 ? 'text-red-500' : 'text-green-700'}`}>
 								<div className={`${commonStyles} flex justify-end items-center `}>
 									{coin.price_change_percentage_24h < 0 ? <FaCaretDown /> : <FaCaretUp />}
@@ -152,6 +152,7 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 					))}
 				</tbody>
 			</table>
+
 			{selectedCoin && (
 				<div
 					className='fixed z-50 top-0 left-0 w-full h-full  flex justify-center items-center cursor-pointer'
@@ -163,6 +164,7 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 							<p>{selectedCoin.name}</p>
 							<p className='text-symbol'>({selectedCoin.symbol.toLocaleUpperCase()})</p>
 						</h1>
+
 						<VictoryChart padding={{ top: 20, bottom: 30, left: 45, right: 0 }}>
 							<VictoryAxis
 								dependentAxis
@@ -175,20 +177,6 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 									},
 								}}
 							/>
-							{/* <VictoryAxis
-								tickValues={Array.from({ length: 7 }, (_, index) => new Date(Date.now() - 7 * 24 * 60 * 60 * 1000 + index * (24 * 60 * 60 * 1000)))}
-								tickFormat={x => `${x.toLocaleDateString()}`}
-								style={{
-									axis: { stroke: isDarkMode ? 'black' : 'white' },
-									tickLabels: {
-										fill: isDarkMode ? 'black' : 'white',
-										fontSize: 10,
-										angle: 0, // You may adjust this based on your layout needs
-										verticalAnchor: 'middle',
-										textAnchor: 'middle', // Adjusted for better alignment
-									},
-								}}
-							/> */}
 
 							<VictoryAxis
 								tickValues={Array.from({ length: 7 }, (_, index) => new Date(Date.now() - 7 * 24 * 60 * 60 * 1000 + index * (24 * 60 * 60 * 1000)))}

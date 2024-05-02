@@ -1,6 +1,7 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import '../app.css';
+import '../index.css';
 
 type SearchBoxProps = {
 	value: string;
@@ -8,17 +9,9 @@ type SearchBoxProps = {
 	isDark: boolean;
 };
 export const SearchBox = ({ value, onInputChange, isDark }: SearchBoxProps) => {
-	//const [placeholder, setPlaceholder] = useState('Search');
-
-	// const handleBlur = () => {
-	// 	if (!value) {
-	// 		setPlaceholder('Search');
-	// 	}
-	// };
-
 	return (
 		<div
-			className={`relative flex items-center
+			className={` flex items-center
 		${isDark ? 'bg-dark border-green-400' : 'bg-blue-200 border-green-800  border-2'} border  rounded-lg overflow-hidden`}>
 			<div className='absolute ml-5'>
 				<IoSearch
@@ -35,7 +28,6 @@ export const SearchBox = ({ value, onInputChange, isDark }: SearchBoxProps) => {
 				rounded-lg placeholder:${isDark ? 'placeholder-black' : 'placeholder-black'}`}
 				value={value}
 				onChange={onInputChange}
-				// onBlur={handleBlur}
 			/>
 		</div>
 	);

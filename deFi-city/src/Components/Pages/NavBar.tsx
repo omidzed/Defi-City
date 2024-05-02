@@ -27,7 +27,9 @@ export const Navbar = ({ isDark, inputValue, setInputValue, toggleDarkMode }: Na
 			<div
 				className='flex flex-col justify-center items-center w-16 md:w-28 cursor-pointer ml-4'
 				onClick={refreshData}>
-				<span className={`${isDark ? 'text-white' : 'text-gray-700'} text-tiny md:text-gecko font-semibold whitespace-nowrap text-right max-w-prose tracking-wide`}>Powered By</span>
+				<span className={`${isDark ? 'text-white' : 'text-gray-700'} text-tiny md:text-gecko font-semibold whitespace-nowrap text-right max-w-prose tracking-wide`}>
+					Powered By
+				</span>
 				<img
 					src={`${isDark ? './coingecko_logo_white.png' : './coingecko_logo_dark.png'}`}
 					alt='CoinGecko Logo'
@@ -36,7 +38,7 @@ export const Navbar = ({ isDark, inputValue, setInputValue, toggleDarkMode }: Na
 			</div>
 
 			<img
-				className='self-auto md:self-auto w-16 md:w-32 mx-2'
+				className='my-4 md:my-2 self-auto md:self-auto w-16 md:w-32 mx-2'
 				src={`${isDark ? './defi8.png' : './defi6.png'}`}
 				alt='Logo'
 			/>
@@ -60,13 +62,3 @@ export const Navbar = ({ isDark, inputValue, setInputValue, toggleDarkMode }: Na
 		</div>
 	);
 };
-
-{
-	/* <div className='md:hidden w-11/12 mx-auto mb-10 px-8'>
-				<SearchBox
-					isDark={isDark}
-					value={inputValue}
-					onInputChange={handleInputChange}
-				/>
-			</div> */
-}
