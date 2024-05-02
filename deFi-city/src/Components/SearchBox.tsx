@@ -8,13 +8,13 @@ type SearchBoxProps = {
 	isDark: boolean;
 };
 export const SearchBox = ({ value, onInputChange, isDark }: SearchBoxProps) => {
-	const [placeholder, setPlaceholder] = useState('Search');
+	//const [placeholder, setPlaceholder] = useState('Search');
 
-	const handleBlur = () => {
-		if (!value) {
-			setPlaceholder('Search');
-		}
-	};
+	// const handleBlur = () => {
+	// 	if (!value) {
+	// 		setPlaceholder('Search');
+	// 	}
+	// };
 
 	return (
 		<div
@@ -29,13 +29,13 @@ export const SearchBox = ({ value, onInputChange, isDark }: SearchBoxProps) => {
 			<input
 				type='text'
 				id='search-box'
-				placeholder={placeholder}
+				placeholder='Search'
 				className={`pl-12 pr-3 py-2.5 w-32 md:w-48 text-lg focus:border-none
 				${isDark ? 'bg-dark text-white' : 'bg-blue-200 text-black'}
 				rounded-lg placeholder:${isDark ? 'placeholder-black' : 'placeholder-black'}`}
 				value={value}
 				onChange={onInputChange}
-				onBlur={handleBlur}
+				// onBlur={handleBlur}
 			/>
 		</div>
 	);

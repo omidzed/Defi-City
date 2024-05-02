@@ -109,7 +109,9 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 										/>
 									</div>
 									<div className='flex flex-col md:gap-1 md:flex-row xl:justify-start xl:items-center md:items-baseline'>
-										<span className='z-10 font-semibold left-[10px] min-w-[24px] md:min-w-10 text-name sticky whitespace-nowrap '>{coin.name}</span>
+										<span className='z-10 text-left pl-2 sticky left-15p[px] md:left-[24px] md:min-w-10 font-semibold left-[10px] min-w-[24px] md:text-name whitespace-nowrap'>
+											{coin.name}
+										</span>
 										<span className='z-10 left-[60px] min-w-[24px] md:min-w-10 font-thin text-symbol align-baseline md:justify-end'>({`${coin.symbol.toUpperCase()}`})</span>
 									</div>
 								</div>
@@ -122,7 +124,7 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 								</div>
 							</td>
 							<td className={`${sevenDayTrend(coin) < 0 ? 'text-red-500' : 'text-green-700'}`}>
-								<div className={`${commonStyles} hidden md:flex md:justify-end md:items-center `}>
+								<div className={`${commonStyles} flex justify-end items-center `}>
 									{sevenDayTrend(coin) < 0 ? <FaCaretDown /> : <FaCaretUp />}
 									{Math.abs(sevenDayTrend(coin)).toFixed(1)}%
 								</div>
@@ -131,7 +133,7 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 							<td className={`${commonStyles} text-right`}>{formatPrice(coin.market_cap)}</td>
 							<td>
 								<div
-									className='hidden text-left md:block md:ml-10 md:min-w-[80px] md:h-14 md:mt-2 md:cursor-pointer'
+									className='md:ml-10 md:min-w-[80px] h-14 md:mt-2 md:cursor-pointer'
 									onClick={() => showModal(coin)}>
 									<VictoryChart>
 										<VictoryLine
@@ -152,7 +154,7 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 			</table>
 			{selectedCoin && (
 				<div
-					className='fixed z-50 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center cursor-pointer'
+					className='fixed z-50 top-0 left-0 w-full h-full  flex justify-center items-center cursor-pointer'
 					onClick={closeModal}>
 					<div
 						className='bg-white absolute z-50 top-15 m-4 p-20 dark:bg-[#333] rounded-lg cursor-auto'
