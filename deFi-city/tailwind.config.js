@@ -9,6 +9,7 @@ export default {
 			name: '1.2rem',
 			symbol: '.95rem',
 			xs: '.7rem',
+			tiny: '.6rem',
 		},
 		extend: {
 			colors: {

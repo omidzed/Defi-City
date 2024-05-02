@@ -3,7 +3,7 @@ import type { Coin } from '../../types/data-types';
 import { StarComponent } from './StarComponent';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa6';
 import { v4 as uuid } from 'uuid';
-import { VictoryChart, VictoryLine, VictoryAxis } from 'victory';
+import { VictoryChart, VictoryLine, VictoryAxis, VictoryTheme } from 'victory';
 import { formatPrice, formatDate } from '../../utils/formatters';
 import { sevenDayTrend } from '../../types/data-types';
 
@@ -13,6 +13,13 @@ type CoinsListProps = {
 };
 
 type SortableCoinKeys = 'market_cap_rank' | 'current_price' | 'name' | 'total_volume';
+
+const formatPriceWithDollar = (price: any) => {
+	if (price >= 1000) {
+		return `$${(price / 1000).toFixed(0)}k`;
+	}
+	return `$${price}`;
+};
 
 export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 	const [selectedCoin, setSelectedCoin] = useState<Coin | null>(null);
@@ -55,19 +62,19 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 	if (!sortedCoins || sortedCoins.length === 0) {
 		return <p className='text-[clamp(1rem,2vw+1rem,2rem)] text-center my-40'>No coins match your search criteria!</p>;
 	}
-
+	//
 	return (
 		<div className='w-full sm:w-11/12 mx-auto'>
 			<table className='w-full sortable'>
-				<thead className='overflow-y-hidden overflow-x-hidden sticky top-0 z-40'>
+				<thead className={`${isDark ? 'bg-dark' : 'bg-light'} sticky top-0 z-50 overflow-y-hidden overflow-x-hidden`}>
 					<tr className={`${isDark ? 'bg-gray-200' : 'bg-dark'} p-0 h-px  no-sort double-border`}>
 						<th colSpan={14}></th>
 					</tr>
 					<tr>
 						<th
-							className={`${commonStyles} flex flex-nowrap items-center gap-2 text-right sticky left-[10px] min-w-[24px] md:min-w-10 pl-2 md:pl-8 cursor-pointer`}
+							className={`${commonStyles} flex flex-nowrap items-center gap-2 text-right sticky left-[10px] min-w-[24px] md:min-w-10 pl-4 md:pl-8 cursor-pointer`}
 							onClick={() => handleSort('market_cap_rank')}>
-						#	{sortColumn === 'market_cap_rank' && (sortDirection === 'asc' ? <FaCaretUp /> : <FaCaretDown />)}
+							# {sortColumn === 'market_cap_rank' && (sortDirection === 'asc' ? <FaCaretUp /> : <FaCaretDown />)}
 						</th>
 						<th className={`${commonStyles} text-left pl-2 sticky left-[60px] md:left-[24px] md:min-w-10 indicator-left cursor-pointer`}>Coin</th>
 						<th className={`${commonStyles} text-right  md:left-[12px] md:min-w-[48px] indicator-left cursor-pointer`}>Price</th>
@@ -88,7 +95,7 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 							className={`${isDark ? 'border-y-white' : 'border-y-dark'}`}>
 							<td>
 								<div
-									className={`${commonStyles} border-y-dark z-10 left-[10px] min-w-[24px] md:min-w-10 flex items-center gap-2 text-center sticky pl-2 md:pl-8 no-sort cursor-pointer`}>
+									className={`${commonStyles} border-y-dark z-10 left-[10px] min-w-[24px] md:min-w-10 flex items-center gap-2 text-center sticky pl-4 md:pl-8 no-sort cursor-pointer`}>
 									<StarComponent isDarkMode={isDark} />
 									{coin.market_cap_rank}
 								</div>
@@ -107,14 +114,14 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 									</div>
 								</div>
 							</td>
-							<td className={`${commonStyles} md:text-right md:left-[12px] md:min-w-[48px]`}>{formatPrice(coin.current_price)}</td>
-							<td className={`${coin.price_change_percentage_24h < 0 ? 'text-red-500' : 'text-green-600'}`}>
+							<td className={`${commonStyles} pl-2 text-right md:left-[12px] md:min-w-[48px]`}>{formatPrice(coin.current_price)}</td>
+							<td className={`${coin.price_change_percentage_24h < 0 ? 'text-red-500' : 'text-green-700'}`}>
 								<div className={`${commonStyles} flex justify-end items-center `}>
 									{coin.price_change_percentage_24h < 0 ? <FaCaretDown /> : <FaCaretUp />}
 									{Math.abs(coin.price_change_percentage_24h).toFixed(1)}%
 								</div>
 							</td>
-							<td className={`${sevenDayTrend(coin) < 0 ? 'text-red-500' : 'text-green-600'}`}>
+							<td className={`${sevenDayTrend(coin) < 0 ? 'text-red-500' : 'text-green-700'}`}>
 								<div className={`${commonStyles} hidden md:flex md:justify-end md:items-center `}>
 									{sevenDayTrend(coin) < 0 ? <FaCaretDown /> : <FaCaretUp />}
 									{Math.abs(sevenDayTrend(coin)).toFixed(1)}%
@@ -154,12 +161,16 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 							<p>{selectedCoin.name}</p>
 							<p className='text-symbol'>({selectedCoin.symbol.toLocaleUpperCase()})</p>
 						</h1>
-						<VictoryChart padding={{ top: 20, bottom: 50, left: 50, right: 50 }}>
+						<VictoryChart padding={{ top: 20, bottom: 30, left: 45, right: 0 }}>
 							<VictoryAxis
 								dependentAxis
+								tickFormat={tick => formatPriceWithDollar(tick)}
 								style={{
-									axis: { stroke: isDark ? 'black' : 'white' }, // Adjust axis color based on theme
-									tickLabels: { fill: isDark ? 'black' : 'white' }, // Adjust tick label color based on theme
+									axis: { stroke: isDark ? 'black' : 'black' },
+									tickLabels: {
+										fill: isDark ? 'black' : 'black',
+										fontSize: 11,
+									},
 								}}
 							/>
 							{/* <VictoryAxis
@@ -179,20 +190,21 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 
 							<VictoryAxis
 								tickValues={Array.from({ length: 7 }, (_, index) => new Date(Date.now() - 7 * 24 * 60 * 60 * 1000 + index * (24 * 60 * 60 * 1000)))}
-								tickFormat={x => {
+								tickFormat={(x: string | number | Date) => {
 									const date = new Date(x);
 									return `${formatDate(date)}`;
 								}}
 								style={{
-									axis: { stroke: isDark ? 'black' : 'white' },
+									axis: { stroke: isDark ? 'black' : 'black' },
 									tickLabels: {
-										fill: isDark ? 'black' : 'white',
-										fontSize: 10,
-										angle: 45,
+										fill: isDark ? 'black' : 'black',
+										fontSize: 9,
+										angle: 0,
 										verticalAnchor: 'middle',
 										textAnchor: 'start',
 									},
 								}}
+								theme={VictoryTheme.material}
 							/>
 
 							<VictoryLine
