@@ -4,7 +4,7 @@ import { StarComponent } from './StarComponent';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa6';
 import { v4 as uuid } from 'uuid';
 import { VictoryChart, VictoryLine, VictoryAxis, VictoryTheme } from 'victory';
-import { formatPrice, formatDate } from '../../utils/formatters';
+import { formatPrice, formatDate, formatPriceWithDollar } from '../../utils/formatters';
 import { sevenDayTrend } from '../../types/data-types';
 
 type CoinsListProps = {
@@ -13,13 +13,6 @@ type CoinsListProps = {
 };
 
 type SortableCoinKeys = 'market_cap_rank' | 'current_price' | 'name' | 'total_volume';
-
-const formatPriceWithDollar = (price: any) => {
-	if (price >= 1000) {
-		return `$${(price / 1000).toFixed(0)}k`;
-	}
-	return `$${price}`;
-};
 
 export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 	const [selectedCoin, setSelectedCoin] = useState<Coin | null>(null);
@@ -77,10 +70,13 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 							# {sortColumn === 'market_cap_rank' && (sortDirection === 'asc' ? <FaCaretUp /> : <FaCaretDown />)}
 						</th>
 						<th className={`${commonStyles} text-left pl-2 sticky left-[60px] md:left-[24px] md:min-w-10 indicator-left cursor-pointer`}>Coin</th>
-						<th className={`${commonStyles} text-left md:text-right md:left-[12px] md:min-w-[40px] indicator-left cursor-pointer`}>Price</th>
+						<th
+							className={`${commonStyles}  flex gap-2 justify-center items-center text-right md:left-[12px] md:min-w-[40px] indicator-left cursor-pointer`}
+							onClick={() => handleSort('current_price')}>
+							{sortColumn === 'current_price' && (sortDirection === 'asc' ? <FaCaretUp /> : <FaCaretDown />)} Price
+						</th>
 						<th className={`${commonStyles} text-right  left-[51px] md:left-[52px] min-w-[100px] 2lg:min-w-[150px] md:table-cell`}>24h</th>
 						<th className={`${commonStyles} text-right indicator-left min-w-[100px] 2lg:min-w-[150px] md:table-cell`}>7d</th>
-						<th className={`${commonStyles} text-right min-w-[150px] indicator-left cursor-pointer md:table-cell`}>24h Volume</th>
 						<th className={`${commonStyles} text-right min-w-[150px] indicator-left cursor-pointer md:table-cell`}>Market Cap</th>
 						<th className={`${commonStyles} text-right min-w-[160px] pr-2 md:pr-8 no-sort md:table-cell`}>Last 7 Days</th>
 					</tr>
@@ -120,13 +116,13 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 							<td className={`${coin.price_change_percentage_24h < 0 ? 'text-red-500' : 'text-green-700'}`}>
 								<div className={`${commonStyles} flex justify-end items-center `}>
 									{coin.price_change_percentage_24h < 0 ? <FaCaretDown /> : <FaCaretUp />}
-									{Math.abs(coin.price_change_percentage_24h).toFixed(1)}%
+									<span className='drop-shadow-xl'>{Math.abs(coin.price_change_percentage_24h).toFixed(1)}%</span>
 								</div>
 							</td>
 							<td className={`${sevenDayTrend(coin) < 0 ? 'text-red-500' : 'text-green-700'}`}>
 								<div className={`${commonStyles} flex justify-end items-center `}>
 									{sevenDayTrend(coin) < 0 ? <FaCaretDown /> : <FaCaretUp />}
-									{Math.abs(sevenDayTrend(coin)).toFixed(1)}%
+									<span className='drop-shadow-lg'>{Math.abs(sevenDayTrend(coin)).toFixed(1)}%</span>
 								</div>
 							</td>
 							<td className={`${commonStyles} text-right`}>{formatPrice(coin.total_volume)}</td>
@@ -158,9 +154,9 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 					className='fixed z-50 top-0 left-0 w-full h-full  flex justify-center items-center cursor-pointer'
 					onClick={closeModal}>
 					<div
-						className='bg-white absolute z-50 top-15 m-4 p-20 dark:bg-[#333] rounded-lg cursor-auto'
+						className='bg-green-100 shadow-2xl shadow-black absolute z-50 top-15 m-4 p-20 rounded-3xl cursor-auto'
 						onClick={e => e.stopPropagation()}>
-						<h1 className='text-black text-name flex gap-1 justify-center items-center'>
+						<h1 className='text-black font-semibold text-name flex gap-1 justify-center items-center'>
 							<p>{selectedCoin.name}</p>
 							<p className='text-symbol'>({selectedCoin.symbol.toLocaleUpperCase()})</p>
 						</h1>
@@ -173,7 +169,7 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 									axis: { stroke: isDark ? 'black' : 'black' },
 									tickLabels: {
 										fill: isDark ? 'black' : 'black',
-										fontSize: 11,
+										fontSize: 14,
 									},
 								}}
 							/>
@@ -188,7 +184,7 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 									axis: { stroke: isDark ? 'black' : 'black' },
 									tickLabels: {
 										fill: isDark ? 'black' : 'black',
-										fontSize: 9,
+										fontSize: 14,
 										angle: 0,
 										verticalAnchor: 'middle',
 										textAnchor: 'start',

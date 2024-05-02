@@ -1,5 +1,3 @@
-import { timeFormat } from 'd3-time-format';
-
 export function formatPrice(price: number | bigint): string {
 	if (typeof price === 'bigint') {
 		// Handle BigInt values
@@ -31,4 +29,13 @@ export function formatPrice(price: number | bigint): string {
 	}
 }
 
-export const formatDate = timeFormat('%b %d'); // for month and day
+export const formatDate = (date: Date): string => {
+	return `${date.getMonth() + 1}/${date.getDate()}`;
+};
+
+export const formatPriceWithDollar = (price: any) => {
+	if (price >= 1000) {
+		return `$${(price / 1000).toFixed(0)}k`;
+	}
+	return `$${price}`;
+};
