@@ -77,12 +77,12 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 							# {sortColumn === 'market_cap_rank' && (sortDirection === 'asc' ? <FaCaretUp /> : <FaCaretDown />)}
 						</th>
 						<th className={`${commonStyles} text-left pl-2 sticky left-[60px] md:left-[24px] md:min-w-10 indicator-left cursor-pointer`}>Coin</th>
-						<th className={`${commonStyles} text-right  md:left-[12px] md:min-w-[48px] indicator-left cursor-pointer`}>Price</th>
+						<th className={`${commonStyles} text-left  md:left-[12px] md:min-w-[48px] indicator-left cursor-pointer`}>Price</th>
 						<th className={`${commonStyles} text-right  left-[51px] md:left-[52px] min-w-[100px] 2lg:min-w-[150px] md:table-cell`}>24h</th>
 						<th className={`${commonStyles} text-right indicator-left min-w-[100px] 2lg:min-w-[150px] md:table-cell`}>7d</th>
 						<th className={`${commonStyles} text-right min-w-[150px] indicator-left cursor-pointer md:table-cell`}>24h Volume</th>
 						<th className={`${commonStyles} text-right min-w-[150px] indicator-left cursor-pointer md:table-cell`}>Market Cap</th>
-						<th className={`${commonStyles} text-end min-w-[160px] pr-2 md:pr-8 no-sort md:table-cell`}>Last 7 Days</th>
+						<th className={`${commonStyles} text-right min-w-[160px] pr-2 md:pr-8 no-sort md:table-cell`}>Last 7 Days</th>
 					</tr>
 					<tr className={`${isDark ? 'bg-gray-200' : 'bg-dark'} p-0 h-px  no-sort double-border`}>
 						<th colSpan={14}></th>
@@ -114,7 +114,7 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 									</div>
 								</div>
 							</td>
-							<td className={`${commonStyles} pl-2 text-right md:left-[12px] md:min-w-[48px]`}>{formatPrice(coin.current_price)}</td>
+							<td className={`${commonStyles} pl-2 text-left md:left-[12px] md:min-w-[48px]`}>{formatPrice(coin.current_price)}</td>
 							<td className={`${coin.price_change_percentage_24h < 0 ? 'text-red-500' : 'text-green-700'}`}>
 								<div className={`${commonStyles} flex justify-end items-center `}>
 									{coin.price_change_percentage_24h < 0 ? <FaCaretDown /> : <FaCaretUp />}
@@ -131,7 +131,7 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 							<td className={`${commonStyles} text-right`}>{formatPrice(coin.market_cap)}</td>
 							<td>
 								<div
-									className='hidden md:block md:ml-16 md:min-w-[80px] md:h-14 md:mt-2 md:cursor-pointer'
+									className='hidden text-left md:block md:ml-10 md:min-w-[80px] md:h-14 md:mt-2 md:cursor-pointer'
 									onClick={() => showModal(coin)}>
 									<VictoryChart>
 										<VictoryLine
