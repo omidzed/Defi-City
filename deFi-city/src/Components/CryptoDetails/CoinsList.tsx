@@ -79,6 +79,7 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 						<th className={`${commonStyles} text-right indicator-left min-w-[100px] 2lg:min-w-[150px] md:table-cell`}>7d</th>
 						<th className={`${commonStyles} text-right min-w-[150px] indicator-left cursor-pointer md:table-cell`}>Market Cap</th>
 						<th className={`${commonStyles} text-right min-w-[160px] pr-2 md:pr-8 no-sort md:table-cell`}>Last 7 Days</th>
+						<th className={`${commonStyles} text-right min-w-[160px] pr-2 md:pr-8 no-sort md:table-cell`}>Last 8 Days</th>
 					</tr>
 					<tr className={`${isDark ? 'bg-gray-200' : 'bg-dark'} p-0 h-px  no-sort double-border`}>
 						<th colSpan={14}></th>
@@ -91,7 +92,7 @@ export const CoinsList = ({ filteredCoins, isDark }: CoinsListProps) => {
 							className={`${isDark ? 'border-y-white' : 'border-y-dark'}`}>
 							<td>
 								<div
-										className={`${commonStyles} border-y-dark z-10 left-[10px] min-w-[24px] md:min-w-[10px] flex items-center gap-2 text-center sticky pl-4 md:pl-8 no-sort cursor-pointer`}>
+									className={`${commonStyles} border-y-dark z-10 left-[10px] min-w-[24px] md:min-w-[10px] flex items-center gap-2 text-center sticky pl-4 md:pl-8 no-sort cursor-pointer`}>
 									<StarComponent isDarkMode={isDark} />
 									{coin.market_cap_rank}
 								</div>
