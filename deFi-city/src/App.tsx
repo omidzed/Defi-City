@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import react, { useState } from 'react';
 import { CoinProvider } from './Components/AppContext';
 import { HomePage } from './Components/Pages/HomePage';
 import { Navbar } from './Components/Pages/NavBar';
