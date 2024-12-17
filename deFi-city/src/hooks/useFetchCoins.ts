@@ -1,86 +1,28 @@
-// import { useState, useEffect } from 'react';
-// import type { Coin } from './data-types';
-
-// export const useFetchCoins = () => {
-// 	const [coins, setCoins] = useState<Coin[]>([]);
-// 	const [loading, setLoading] = useState<boolean>(true);
-// 	const [error, setError] = useState<Error | null>(null);
-// 	const [prices, setPrices] = useState<number[][]>([]);
-
-// 	useEffect(() => {
-// 		const fetchData = async () => {
-// 			try {
-// 				const cachedData = localStorage.getItem('coinsData');
-// 				if (cachedData) {
-// 					const cachedCoins = JSON.parse(cachedData) as Coin[];
-// 					setCoins(cachedCoins);
-// 					// Extract sparkline data from cached data
-// 					setPrices(cachedCoins.map(coin => coin.sparkline_in_7d.price));
-// 					setLoading(false);
-// 					return; // Return early if cached data was found
-// 				}
-// 				const targetUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true`;
-// 				const response = await fetch('https://lfz-cors.herokuapp.com/?url=' + encodeURIComponent(targetUrl), {
-// 					headers: {
-// 						'x-cg-demo-api-key': 'CG-c3zpRsbsY8nVsrk7RdPpWE72',
-// 					},
-// 				});
-// 				if (!response.ok) {
-// 					throw new Error('Failed to fetch data');
-// 				}
-// 				const data: Coin[] = await response.json();
-
-// 				setCoins(data);
-// 				console.log(coins);
-// 				const sevenDayPrices = data.map(coin => coin.sparkline_in_7d.price);
-// 				setPrices(sevenDayPrices); // Update the prices state with sparkline data
-
-// 				localStorage.setItem('coinsData', JSON.stringify(data));
-// 			} catch (err) {
-// 				setError(err instanceof Error ? err : new Error('Failed to fetch data'));
-// 			} finally {
-// 				setLoading(false);
-// 			}
-// 		};
-
-// 		fetchData();
-// 	}, []);
-
-// 	useEffect(() => {
-// 		console.log(coins);
-// 	}, [coins]);
-
-// 	return { coins, loading, error, prices };
-// };
-
 import { useState, useEffect } from 'react';
 import type { Coin } from '../types/data-types';
+
+const CACHE_TIMEOUT = 1000 * 60 * 5; // 5 minutes
 
 export const useFetchCoins = () => {
 	const [coins, setCoins] = useState<Coin[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<Error | null>(null);
-	const [prices, setPrices] = useState<number[][]>([]);
 
 	const fetchData = async () => {
 		try {
 			setLoading(true);
 			const targetUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true`;
-			const response = await fetch('https://lfz-cors.herokuapp.com/?url=' + encodeURIComponent(targetUrl), {
-				headers: {
-					'x-cg-demo-api-key': 'CG-c3zpRsbsY8nVsrk7RdPpWE72',
-				},
-			});
+			const response = await fetch(targetUrl);
+
 			if (!response.ok) {
-				throw new Error('Failed to fetch data');
+				throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
 			}
+
 			const data: Coin[] = await response.json();
-
 			setCoins(data);
-			const sevenDayPrices = data.map(coin => coin.sparkline_in_7d.price);
-			setPrices(sevenDayPrices); // Update the prices state with sparkline data
 
-			localStorage.setItem('coinsData', JSON.stringify(data));
+			// Cache data with timestamp
+			localStorage.setItem('coinsData', JSON.stringify({ data, timestamp: Date.now() }));
 		} catch (err) {
 			setError(err instanceof Error ? err : new Error('Failed to fetch data'));
 		} finally {
@@ -88,26 +30,23 @@ export const useFetchCoins = () => {
 		}
 	};
 
-	const refreshData = () => {
-		fetchData();
-		console.log('data refreshed');
-	};
-
 	useEffect(() => {
 		const cachedData = localStorage.getItem('coinsData');
 		if (cachedData) {
-			const cachedCoins = JSON.parse(cachedData) as Coin[];
-			setCoins(cachedCoins);
-			setPrices(cachedCoins.map(coin => coin.sparkline_in_7d.price));
-			setLoading(false);
-		} else {
-			fetchData();
+			const { data, timestamp } = JSON.parse(cachedData);
+			if (Date.now() - timestamp < CACHE_TIMEOUT) {
+				setCoins(data);
+				setLoading(false);
+				return;
+			}
 		}
+		fetchData();
 	}, []);
 
-	useEffect(() => {
-		console.log(coins);
-	}, [coins]);
+	const refreshData = () => {
+		fetchData();
+		console.log('Data refreshed');
+	};
 
-	return { coins, loading, error, prices, refreshData };
+	return { coins, loading, error, prices: coins.map(coin => coin.sparkline_in_7d.price), refreshData };
 };
